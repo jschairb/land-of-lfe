@@ -7,8 +7,8 @@
     (from guess-my-number
       (ash 2)
       (bigger 1)
-      (guess-my-number 1)
-      (new-game 0)
+      (guess 1)
+      (guess-my-number 0)
       (smaller 1)
       (start-over 0))))
 
@@ -19,19 +19,23 @@
   (is-equal 50 (ash 101 -1)))
 
 (deftest bigger
-  (let ((game (make-game big 100 small 50)))
-    (is-equal 75 (bigger game))))
+  (let ((game (guess-my-number)))
+    (let ((updated-game (bigger game)))
+      (is (is-game updated-game))
+      (is-equal 51 (game-small updated-game)))))
 
-(deftest new-game
-  (is (is-game (new-game))))
+(deftest guess
+  (let ((game (guess-my-number)))
+    (is-equal 50 (guess game))))
 
 (deftest guess-my-number
-  (let ((game (new-game)))
-    (is-equal 50 (guess-my-number game))))
+  (is (is-game (guess-my-number))))
 
 (deftest smaller
-  (let ((game (make-game big 50 small 1)))
-    (is-equal 25 (smaller game))))
+  (let ((game (guess-my-number)))
+    (let ((updated-game (smaller game)))
+      (is (is-game updated-game))
+      (is-equal 49 (game-big updated-game)))))
 
 (deftest start-over
   (is (is-game (start-over))))

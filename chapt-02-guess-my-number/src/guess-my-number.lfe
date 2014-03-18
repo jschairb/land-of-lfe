@@ -3,31 +3,21 @@
 
 (include-lib "include/guess-my-number-records.lfe")
 
-;; (slurp '"./src/guess-my-number.lfe")
-;; (set game (new-game))
-;; (guess-my-number game)
-;; > 50
-;; (bigger game)
-;; > 75
-;; ... more until correct guesses
-;; (set game (start-over))
-
 (defun ash (integer count)
+  "For more info: http://clhs.lisp.se/Body/f_ash.htm"
   (bsl integer count))
 
 (defun bigger (game)
-  (set-game-small game (+ 1 (guess-my-number game)))
-  (guess-my-number game))
+  (set-game-small game (+ 1 (guess game))))
 
-(defun guess-my-number (game)
+(defun guess (game)
   (ash (+ (game-big game) (game-small game)) -1))
 
-(defun new-game ()
+(defun guess-my-number ()
   (make-game))
 
 (defun smaller (game)
-  (set-game-big game (- 1 (guess-my-number game)))
-  (guess-my-number game))
+  (set-game-big game (- (guess game) 1)))
 
 (defun start-over ()
-  (new-game))
+  (guess-my-number))

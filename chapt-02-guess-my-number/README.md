@@ -2,25 +2,49 @@
 
 Think of a number and have LFE guess it through the REPL.
 
-```lisp
-(slurp '"/.src/guess-my-number.lfe")
-;; > #(ok guess-my-number)
-(set game (new-game))
-;; #(game 100 1)
-(guess-my-number game)
-;; 50
-(bigger game)
-;; 75
-```
-
 ## Usage
 
-From the directory
+From the directory:
 
 ```bash
     $ rebar get-deps
     $ rebar compile
     $ make shell-no-deps
+```
+
+Then:
+
+```lisp
+(slurp '"./src/guess-my-number.lfe")
+;; #(ok guess-my-number)
+(set game (guess-my-number))
+;; #(game 100 1)
+(guess game)
+;; 50
+(set game (smaller game))
+;; #(game 49 1)
+(guess game)
+;; 25
+(set game (bigger game))
+;; #(game 49 26)
+(guess game)
+;; 37
+(set game (bigger game))
+;; #(game 49 38)
+(guess game)
+;; 43
+(set game (smaller game))
+;; #(game 42 38)
+(guess game)
+;; 40
+(set game (bigger game))
+;; #(game 42 41)
+(guess game)
+;; 41
+(set game (bigger game))
+;; #(game 42 42)
+(guess game)
+;; 42
 ```
 
 To run the unit tests:
