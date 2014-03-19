@@ -1,6 +1,6 @@
 # Chapter 2 - Guess My Number
 
-Think of a number and have LFE guess it through the REPL.
+Pick a number between 1 and 100, have LFE guess it through the REPL.
 
 ## Usage
 
@@ -52,6 +52,12 @@ To run the unit tests:
 ```bash
     $ make check-no-deps
 ```
+
+## Differences From The Book
+
+* Lack of global variables: LFE does not have the concept of global variables or really even the idea of mutability, so establishing a global variable is out of the question. The [normal method for tracking state](https://github.com/rvirding/lfe/blob/master/examples/internal-state.lfe) is to pass a record or function around. I implemented this by creating a record of the bigger and smaller values and updating the fields before querying it for the guess. This is different than sending `bigger` or `smaller` and having the side-effect of updating state and returning the guess. You can read more about [LFE Records](http://lfe.github.io/user-guide/data/4.html).
+
+* `ash` implementation: While this is a standard function in many lisps, it is not included in LFE. I suspect that's because of how trivial it is to implement because there is an existing operator in Erlang, [`bsl`](http://erlang.org/doc/reference_manual/expressions.html#id77743).
 
 ## Dependencies
 
